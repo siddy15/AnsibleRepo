@@ -1,0 +1,5 @@
+Cmnd_Alias      POWER = /sbin/shutdown, /sbin/halt, /sbin/reboot, /sbin/restart, /bin/kill
+Cmnd_Alias      RULES = /usr/sbin/, /sbin/ifconfig
+
+%users ALL = NOPASSWD: RULES
+%users ALL = NOPASSWD: POWER

@@ -1,0 +1,26 @@
+---
+# tasks file for usermgmt
+- name: configure sudoers file in sudoers.d
+  template: 
+    src: templates/sudoersfile.j2
+    dest: /etc/sudoers.d/sudoersfile
+    mode: 0440
+    validate: 'visudo -cf %s'
+
+- name: Create new users
+  user: 
+    name: "spade"
+    groups: "users"
+    password: "$6$yd9pTGE1D.vzlt$Vmy7GYhEjmsrJZSZdrFBb6YXXHc5UOtrRwi9pt0EmSRE0vfis1lSLUxEDMXqRY4vDfF0aajIL/CrEPHjWT6z.0"
+    shell: /bin/bash
+    #generate_ssh_key: yes
+    #ssh_key_bits: 2048
+    #ssh_key_file: .ssh/id_rsa
+
+- name: Set authorized keys taken from url
+  authorized_key:
+    user: spade
+    state: present
+    key: "{{ lookup('file', '/root/myplatform/roles/usermgmt/testing3.pub') }}"
+
+

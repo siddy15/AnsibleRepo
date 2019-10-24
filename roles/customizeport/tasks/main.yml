@@ -1,0 +1,18 @@
+---
+# tasks file for customizeport
+ - name: Setting up customized port
+   lineinfile: 
+     dest: "/etc/ssh/sshd_config"
+     regexp: "^Port"
+     line: "Port 10022"
+ - name: Changing the Permit Root login
+   lineinfile: 
+     dest: "/etc/ssh/sshd_config"
+     regexp: "^PermitRootLogin"
+     line: "PermitRootLogin no"
+ - name: Changing the PAM
+   lineinfile:
+     dest: "/etc/ssh/sshd_config"
+     regexp: "^PasswordAuthentication"
+     line: "PasswordAuthentication no"
+   notify: "Restart sshd" 

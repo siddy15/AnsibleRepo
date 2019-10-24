@@ -1,0 +1,13 @@
+---
+- hosts: anstwo
+  tasks:
+    - name: Echo my_env_var
+      environment:
+        dummy_env1: dummy_value1
+        dummy_env2: dummy_value2
+        dummy_env3: /var/opt
+      shell: "echo $dummy_env1 $dummy_env2 $dummy_env3"
+
+#Note: These env variables will only be reflected for this task. 
+
+

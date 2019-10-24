@@ -1,0 +1,16 @@
+---
+ - hosts: localhost 
+   tasks:
+     - name: get public IP
+       ipify_facts:
+       register: public_ip
+     - name: Adding  rule to SG to allow SSH access
+       local_action:
+         module: ec2_group
+         name: "SG_Name"
+         purge_rules: no
+         rules:
+          - proto: tcp
+            from_port: "22"
+            to_port: "22"
+            cidr_ip: "{{ public_ip }}"
